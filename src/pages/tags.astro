@@ -9,7 +9,7 @@ const posts = await getCollection(
 const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
 ---
 
-<Base title="Tags — Whalica">
+<Base title="标签 — Whalica">
   <div class="shell page narrow">
     <p class="eyebrow">TOPICS</p>
     <h1>

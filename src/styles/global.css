@@ -34,7 +34,7 @@
 }
 body {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.8;
 }
 a {
@@ -72,10 +72,10 @@ h3 {
   letter-spacing: -0.035em;
 }
 h2 {
-  font-size: 26px;
+  font-size: 28px;
 }
 h3 {
-  font-size: 21px;
+  font-size: 23px;
 }
 p {
   color: var(--muted);
@@ -96,7 +96,7 @@ p {
 }
 .brand {
   gap: 12px;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
 }
 .mark {
@@ -119,7 +119,7 @@ nav {
   gap: 28px;
 }
 #main-nav a {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--muted);
   position: relative;
 }
@@ -142,12 +142,12 @@ nav {
   color: var(--text);
   min-width: 36px;
   height: 36px;
-  font-size: 22px;
+  font-size: 24px;
   line-height: 1;
 }
 .menu-toggle {
   display: none;
-  font-size: 14px;
+  font-size: 16px;
 }
 .skip {
   position: fixed;
@@ -168,13 +168,13 @@ nav {
   padding: 88px 0 80px;
 }
 .eyebrow {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 650;
   letter-spacing: 0.14em;
   margin-bottom: 24px;
 }
 .hero .eyebrow {
-  font-size: 10px;
+  font-size: 12px;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -186,7 +186,7 @@ nav {
   border-radius: 50%;
 }
 .hero h1 {
-  font-size: 48px;
+  font-size: 50px;
   line-height: 1.1;
   letter-spacing: -0.05em;
   margin-bottom: 28px;
@@ -195,18 +195,18 @@ nav {
   color: var(--accent);
 }
 .hero-identity {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 650;
   margin-bottom: 14px;
 }
 .hero-identity span {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   color: var(--muted);
   margin-left: 8px;
 }
 .hero-description {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.9;
   margin-bottom: 30px;
 }
@@ -223,7 +223,7 @@ nav {
   min-height: 44px;
   padding: 10px 20px;
   border-radius: 7px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 550;
 }
 .primary {
@@ -235,7 +235,7 @@ nav {
   color: #fff;
 }
 .text-link {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 550;
   white-space: nowrap;
 }
@@ -254,7 +254,7 @@ nav {
 .art-label,
 .art-coordinate {
   position: absolute;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.15em;
   color: var(--muted);
   left: 24px;
@@ -295,7 +295,7 @@ nav {
 .art-cross {
   position: absolute;
   color: var(--accent);
-  font-size: 20px;
+  font-size: 22px;
 }
 .cross-one {
   left: 26px;
@@ -310,7 +310,7 @@ nav {
   display: grid;
   bottom: 26px;
   right: 24px;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--muted);
 }
@@ -359,7 +359,7 @@ nav {
   color: var(--muted);
 }
 .project-number {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.12em;
 }
 .project-symbol {
@@ -382,11 +382,11 @@ nav {
   bottom: 14px;
 }
 .project-card h3 {
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 12px;
 }
 .project-card p {
-  font-size: 13px;
+  font-size: 15px;
   min-height: 48px;
   margin-bottom: 24px;
 }
@@ -396,7 +396,7 @@ nav {
   gap: 7px;
   border-top: 1px solid var(--border);
   padding: 16px 0;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
 }
 .status-dot {
@@ -420,20 +420,20 @@ nav {
   background: var(--surface);
 }
 .community-icon {
-  font-size: 24px;
+  font-size: 26px;
   color: var(--accent);
 }
 .community-strip strong {
   display: block;
-  font-size: 14px;
+  font-size: 16px;
 }
 .community-strip div > span {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 .community-caption {
   margin-left: auto;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
 }
 .writing-empty {
@@ -444,25 +444,25 @@ nav {
   border-block: 1px solid var(--border);
 }
 .writing-icon {
-  font-size: 36px;
+  font-size: 38px;
   color: var(--accent);
 }
 .writing-empty h3 {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 8px;
 }
 .writing-empty p {
-  font-size: 13px;
+  font-size: 15px;
   margin-bottom: 0;
 }
 .quiet-label {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--muted);
 }
 .writing-empty > .quiet-label {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 12px;
 }
 .cp-panel {
   display: grid;
@@ -475,14 +475,14 @@ nav {
   margin: 16px 0 80px;
 }
 .cp-panel h2 {
-  font-size: 28px;
+  font-size: 30px;
   line-height: 1.5;
 }
 .cp-panel p {
-  font-size: 13px;
+  font-size: 15px;
 }
 .cp-panel .eyebrow {
-  font-size: 9px;
+  font-size: 12px;
 }
 .thinking-steps {
   list-style: none;
@@ -501,10 +501,10 @@ nav {
 }
 .thinking-steps li > span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 .thinking-steps strong {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 550;
 }
 .thinking-steps li > span:last-child {
@@ -519,28 +519,28 @@ nav {
 }
 .footer-name {
   font-weight: 700;
-  font-size: 17px;
+  font-size: 19px;
 }
 .site-footer p {
-  font-size: 11px;
+  font-size: 13px;
   margin: 4px 0 0;
 }
 .footer-right {
   display: flex;
   gap: 24px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .page {
   padding-block: 72px 100px;
   min-height: 70vh;
 }
 .page h1 {
-  font-size: 44px;
+  font-size: 46px;
   margin-bottom: 20px;
 }
 .page-intro {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.9;
   margin-bottom: 40px;
 }
@@ -554,13 +554,13 @@ nav {
   background: var(--surface);
 }
 .information-panel h2 {
-  font-size: 24px;
+  font-size: 26px;
 }
 .information-panel p {
-  font-size: 15px;
+  font-size: 17px;
 }
 .back-link {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   display: inline-block;
   margin-bottom: 40px;
@@ -568,7 +568,7 @@ nav {
 .blog-tools {
   display: flex;
   gap: 24px;
-  font-size: 13px;
+  font-size: 15px;
   margin: 24px 0;
 }
 .categories {
@@ -578,7 +578,7 @@ nav {
 }
 .categories > span,
 .tags a {
-  font-size: 11px;
+  font-size: 13px;
   padding: 4px 12px;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -591,11 +591,11 @@ nav {
   text-align: center;
 }
 .empty-state h2 {
-  font-size: 26px;
+  font-size: 28px;
   margin: 14px 0;
 }
 .empty-state p {
-  font-size: 14px;
+  font-size: 16px;
 }
 .demo-note {
   display: flex;
@@ -607,10 +607,10 @@ nav {
   background: var(--subtle);
 }
 .demo-note strong {
-  font-size: 14px;
+  font-size: 16px;
 }
 .demo-note p {
-  font-size: 12px;
+  font-size: 14px;
   margin: 4px 0 0;
 }
 .post-row {
@@ -622,12 +622,12 @@ nav {
 }
 .post-row h2,
 .post-row h3 {
-  font-size: 20px;
+  font-size: 22px;
   margin: 0;
 }
 .post-row > span,
 .post-row time {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 .post-row time {
@@ -643,7 +643,7 @@ nav {
   margin-bottom: 40px;
 }
 .article-header h1 {
-  font-size: 38px;
+  font-size: 40px;
   margin: 0 0 20px;
 }
 .article-header .eyebrow {
@@ -651,13 +651,13 @@ nav {
   margin-bottom: 18px;
 }
 .article-description {
-  font-size: 16px;
+  font-size: 18px;
 }
 .article-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   margin-bottom: 18px;
 }
@@ -680,12 +680,12 @@ nav {
   color: var(--text);
 }
 .prose h2 {
-  font-size: 26px;
+  font-size: 28px;
   margin: 48px 0 20px;
   scroll-margin-top: 24px;
 }
 .prose h3 {
-  font-size: 21px;
+  font-size: 23px;
   margin: 32px 0 16px;
   scroll-margin-top: 24px;
 }
@@ -702,7 +702,7 @@ nav {
   background: var(--soft);
   margin: 0 0 32px;
   border-radius: 0 8px 8px 0;
-  font-size: 14px;
+  font-size: 16px;
 }
 .prose blockquote p {
   margin: 0;
@@ -731,7 +731,7 @@ nav {
   border-radius: 10px;
   padding: 48px 20px 20px;
   font:
-    13px/1.8 "Cascadia Code",
+    15px/1.8 "Cascadia Code",
     Consolas,
     monospace;
   tab-size: 4;
@@ -744,7 +744,7 @@ nav {
   background: var(--surface);
   color: var(--muted);
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 13px;
   padding: 3px 10px;
 }
 .katex-display {
@@ -759,7 +759,7 @@ nav {
   max-width: 100%;
   border-collapse: collapse;
   margin: 24px 0;
-  font-size: 14px;
+  font-size: 16px;
 }
 .prose th,
 .prose td {
@@ -779,7 +779,7 @@ nav {
   padding-left: 24px;
 }
 .article-sidebar summary {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 650;
   cursor: pointer;
   list-style: none;
@@ -795,7 +795,7 @@ nav {
   margin-top: 22px;
 }
 .article-sidebar nav a {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.7;
 }
@@ -804,10 +804,10 @@ nav {
 }
 .article-sidebar nav .toc-sub {
   padding-left: 14px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .article-sidebar > p {
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid var(--border);
@@ -822,7 +822,7 @@ nav {
   align-items: center;
 }
 .article-end > span {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
 }
 html[data-theme="dark"] .astro-code,
@@ -840,7 +840,7 @@ html[data-theme="dark"] .astro-code span {
   margin-top: 12px;
 }
 #search-status {
-  font-size: 13px;
+  font-size: 15px;
   margin-top: 20px;
 }
 #search-results a {
@@ -888,7 +888,7 @@ html[data-theme="dark"] .astro-code span {
     gap: 16px;
   }
   .hero .eyebrow {
-    font-size: 8px;
+    font-size: 12px;
   }
   .writing-empty > .quiet-label {
     display: none;
@@ -899,13 +899,13 @@ html[data-theme="dark"] .astro-code span {
     width: calc(100% - 40px);
   }
   .brand {
-    font-size: 18px;
+    font-size: 20px;
   }
   .mark {
     width: 30px;
     height: 30px;
     line-height: 30px;
-    font-size: 18px;
+    font-size: 20px;
   }
   .nav-wrap {
     gap: 10px;
@@ -941,33 +941,33 @@ html[data-theme="dark"] .astro-code span {
     gap: 36px;
   }
   .hero h1 {
-    font-size: 34px;
+    font-size: 36px;
     line-height: 1.15;
     margin-bottom: 24px;
   }
   .hero .eyebrow {
-    font-size: 8px;
+    font-size: 12px;
     letter-spacing: 0.1em;
   }
   .hero-identity {
-    font-size: 14px;
+    font-size: 16px;
   }
   .hero-identity span {
-    font-size: 11px;
+    font-size: 13px;
   }
   .hero-description {
-    font-size: 14px;
+    font-size: 16px;
   }
   .hero-actions {
     gap: 20px;
   }
   .button {
-    font-size: 12px;
+    font-size: 14px;
     padding: 10px 16px;
     gap: 18px;
   }
   .text-link {
-    font-size: 12px;
+    font-size: 14px;
   }
   .hero-art {
     height: 220px;
@@ -984,19 +984,19 @@ html[data-theme="dark"] .astro-code span {
     height: 240px;
   }
   .art-note {
-    font-size: 7px;
+    font-size: 12px;
     bottom: 16px;
     right: 16px;
   }
   .art-coordinate {
-    font-size: 7px;
+    font-size: 12px;
     left: 16px;
     bottom: 16px;
   }
   .art-label {
     left: 16px;
     top: 14px;
-    font-size: 7px;
+    font-size: 12px;
   }
   .home-section {
     padding-top: 32px;
@@ -1009,10 +1009,10 @@ html[data-theme="dark"] .astro-code span {
     margin-bottom: 24px;
   }
   .section-heading h2 {
-    font-size: 23px;
+    font-size: 25px;
   }
   .section-heading .eyebrow {
-    font-size: 9px;
+    font-size: 12px;
     margin-bottom: 12px;
   }
   .project-grid {
@@ -1023,7 +1023,7 @@ html[data-theme="dark"] .astro-code span {
     padding: 24px 24px 0;
   }
   .project-card h3 {
-    font-size: 21px;
+    font-size: 23px;
   }
   .community-strip {
     padding: 16px;
@@ -1031,7 +1031,7 @@ html[data-theme="dark"] .astro-code span {
     flex-wrap: wrap;
   }
   .community-caption {
-    font-size: 8px;
+    font-size: 12px;
     margin-left: 36px;
   }
   .writing-empty {
@@ -1040,7 +1040,7 @@ html[data-theme="dark"] .astro-code span {
     align-items: flex-start;
   }
   .writing-empty p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .cp-panel {
     grid-template-columns: 1fr;
@@ -1049,19 +1049,19 @@ html[data-theme="dark"] .astro-code span {
     margin-bottom: 48px;
   }
   .cp-panel h2 {
-    font-size: 24px;
+    font-size: 26px;
   }
   .cp-panel .eyebrow {
-    font-size: 8px;
+    font-size: 12px;
   }
   .cp-panel p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .thinking-steps li {
     padding: 12px 0;
   }
   .thinking-steps strong {
-    font-size: 16px;
+    font-size: 18px;
   }
   .site-footer {
     padding-block: 24px;
@@ -1069,32 +1069,32 @@ html[data-theme="dark"] .astro-code span {
     gap: 16px;
   }
   .footer-right {
-    font-size: 8px;
+    font-size: 12px;
     max-width: 150px;
   }
   .page {
     padding-block: 48px 64px;
   }
   .page h1 {
-    font-size: 30px;
+    font-size: 32px;
   }
   .page-intro {
-    font-size: 14px;
+    font-size: 16px;
   }
   .information-panel {
     padding: 24px;
   }
   .information-panel h2 {
-    font-size: 23px;
+    font-size: 25px;
   }
   .information-panel p {
-    font-size: 14px;
+    font-size: 16px;
   }
   .empty-state {
     padding: 40px 0;
   }
   .empty-state h2 {
-    font-size: 23px;
+    font-size: 25px;
   }
   .demo-note {
     padding: 20px;
@@ -1117,32 +1117,32 @@ html[data-theme="dark"] .astro-code span {
     margin-bottom: 32px;
   }
   .article-header h1 {
-    font-size: 29px;
+    font-size: 31px;
     line-height: 1.45;
   }
   .article-description {
-    font-size: 14px;
+    font-size: 16px;
   }
   .article-meta {
     gap: 12px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .article-header {
     padding-bottom: 24px;
     margin-bottom: 24px;
   }
   .article-header .eyebrow {
-    font-size: 10px;
+    font-size: 12px;
   }
   .prose h2 {
-    font-size: 23px;
+    font-size: 25px;
     margin-top: 36px;
   }
   .prose h3 {
-    font-size: 19px;
+    font-size: 21px;
   }
   .prose blockquote {
-    font-size: 13px;
+    font-size: 15px;
     padding: 14px 16px;
   }
   .article-end {
@@ -1151,7 +1151,7 @@ html[data-theme="dark"] .astro-code span {
     gap: 20px;
   }
   .categories > span {
-    font-size: 10px;
+    font-size: 12px;
   }
   .prose th,
   .prose td {
@@ -1168,7 +1168,7 @@ html[data-theme="dark"] .astro-code span {
   }
 }
 .tags > span {
-  font-size: 11px;
+  font-size: 13px;
   padding: 4px 12px;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -1181,8 +1181,317 @@ html[data-theme="dark"] .astro-code span {
   padding-top: 24px;
 }
 .related-articles h2 {
-  font-size: 23px;
+  font-size: 25px;
 }
 .related-articles a {
   color: var(--accent);
+}
+
+/* Competition resume: records live in src/data/competitions.json. */
+.competition-page {
+  max-width: 960px;
+}
+.competition-intro {
+  margin-bottom: 64px;
+}
+.competition-jump {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.competition-jump a {
+  padding: 7px 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 16px;
+  background: var(--surface);
+}
+.competition-jump a:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+}
+.competition-section {
+  margin-top: 64px;
+  scroll-margin-top: 32px;
+}
+.competition-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-bottom: 16px;
+}
+.competition-section-heading h2 {
+  margin: 0;
+  font-size: 30px;
+}
+.competition-section-heading p {
+  margin: 0;
+  font-size: 16px;
+}
+.competition-note {
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+.oj-table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.oj-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+.oj-table th,
+.oj-table td {
+  padding: 20px 24px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.oj-table thead th {
+  background: var(--subtle);
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 550;
+}
+.oj-table tbody th {
+  font-size: 18px;
+  font-weight: 600;
+}
+.oj-table td {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.oj-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.competition-season {
+  margin-top: 40px;
+  scroll-margin-top: 32px;
+}
+.competition-year {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.competition-year h3 {
+  margin: 0;
+  font-size: 28px;
+}
+.competition-year > span {
+  color: var(--muted);
+  font-size: 15px;
+}
+.competition-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.competition-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.competition-entry:last-child {
+  border-bottom: 0;
+}
+.competition-name {
+  font-size: 18px;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.competition-result {
+  flex-shrink: 0;
+  padding: 3px 12px;
+  border-radius: 5px;
+  background: var(--soft);
+  color: var(--accent);
+  font-size: 16px;
+}
+.competition-result-participated {
+  background: var(--subtle);
+  color: var(--muted);
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 767px) {
+  .competition-intro {
+    margin-bottom: 40px;
+  }
+  .competition-section {
+    margin-top: 40px;
+  }
+  .competition-section-heading h2 {
+    font-size: 26px;
+  }
+  .competition-section-heading p,
+  .competition-note {
+    font-size: 15px;
+  }
+  .competition-jump a {
+    font-size: 15px;
+    padding: 7px 12px;
+  }
+  .oj-table th,
+  .oj-table td {
+    padding: 16px 20px;
+  }
+  .oj-table tbody th,
+  .oj-table td {
+    font-size: 17px;
+  }
+  .competition-entry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+  }
+  .competition-name {
+    font-size: 18px;
+  }
+  .competition-result {
+    font-size: 16px;
+  }
+}
+
+/* Hobby and achievement content lives in src/data/interests.json. */
+.interests-section {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+.interests-section > .eyebrow {
+  margin-bottom: 16px;
+}
+.interests-section > h2 {
+  font-size: 30px;
+  margin-bottom: 16px;
+}
+.interests-intro {
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+.interests-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 20px;
+}
+.interests-heading h3 {
+  font-size: 24px;
+  margin: 0;
+}
+.interests-heading > span {
+  font-size: 15px;
+  color: var(--muted);
+}
+.rhythm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.rhythm-card {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 0;
+}
+.rhythm-card h4 {
+  font-size: 22px;
+  line-height: 1.4;
+  margin: 0 0 28px;
+  letter-spacing: -0.025em;
+}
+.rhythm-stat {
+  margin: 0 0 24px;
+}
+.rhythm-stat dt {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.rhythm-stat dd {
+  font-size: 30px;
+  font-weight: 650;
+  line-height: 1.4;
+  color: var(--accent);
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.rhythm-stat dd.rhythm-stat-empty {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.interest-empty {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+.interest-records {
+  padding-left: 20px;
+  margin: 0;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+.interest-records li + li {
+  margin-top: 8px;
+}
+.other-interests {
+  margin-top: 40px;
+}
+.creative-list {
+  border-top: 1px solid var(--border);
+}
+.creative-entry {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+}
+.creative-entry h4 {
+  font-size: 18px;
+  margin: 0;
+}
+@media (max-width: 767px) {
+  .interests-section {
+    margin-top: 48px;
+    padding-top: 32px;
+  }
+  .interests-section > h2 {
+    font-size: 26px;
+  }
+  .interests-heading h3 {
+    font-size: 22px;
+  }
+  .rhythm-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .creative-entry {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
 }

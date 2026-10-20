@@ -1,0 +1,113 @@
+{
+  "onlineJudges": [
+    {
+      "name": "Codeforces",
+      "rating": 1357,
+      "maxRating": 1532,
+      "solved": 648,
+      "ratedContests": 71
+    },
+    {
+      "name": "Atcoder",
+      "rating": 1040,
+      "maxRating": 1045,
+      "solved": 285,
+      "ratedContests": 45
+    },
+    {
+      "name": "Nowcoder（牛客）",
+      "rating": 1620,
+      "maxRating": 1708,
+      "solved": 708,
+      "ratedContests": 56
+    }
+  ],
+  "seasons": [
+    {
+      "year": 2025,
+      "entries": [
+        {
+          "name": "ICPC 西安区域赛",
+          "result": "无"
+        },
+        {
+          "name": "CCPC 广西邀请赛",
+          "result": "无"
+        },
+        {
+          "name": "百度之星省赛",
+          "result": "铜奖"
+        },
+        {
+          "name": "睿抗省赛",
+          "result": "一等奖"
+        },
+        {
+          "name": "睿抗国赛",
+          "result": "一等奖"
+        },
+        {
+          "name": "码蹄杯省赛",
+          "result": "二等奖"
+        },
+        {
+          "name": "码蹄杯国赛",
+          "result": "铜奖"
+        },
+        {
+          "name": "蓝桥杯 C++ B 组省赛",
+          "result": "二等奖"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "entries": [
+        {
+          "name": "码蹄杯省赛",
+          "result": "金奖"
+        },
+        {
+          "name": "蓝桥杯 C++ B 组省赛",
+          "result": "一等奖"
+        },
+        {
+          "name": "天梯赛",
+          "result": "个人国家一等奖"
+        },
+        {
+          "name": "ICPC 西安邀请赛",
+          "result": "铜奖"
+        },
+        {
+          "name": "ICPC 武汉邀请赛",
+          "result": "无"
+        },
+        {
+          "name": "CCPC 南昌邀请赛",
+          "result": "铜奖"
+        },
+        {
+          "name": "CCPC 广西邀请赛",
+          "result": "银奖"
+        },
+        {
+          "name": "蓝桥杯 C++ B 组国赛",
+          "result": "二等奖"
+        },
+        {
+          "name": "ICPC 沈阳邀请赛",
+          "result": "无"
+        },
+        {
+          "name": "码蹄杯国赛",
+          "result": "金奖"
+        },
+        {
+          "name": "西安区域赛",
+          "result": "无"
+        }
+      ]
+    }
+  ]
+}

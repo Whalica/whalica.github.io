@@ -1,18 +1,109 @@
 ---
 import Base from "../layouts/Base.astro";
+import competitions from "../data/competitions.json";
+const seasons = [...competitions.seasons].sort((a, b) => b.year - a.year);
 ---
 
-<Base title="CP · 算法与竞赛 — Whalica">
-  <div class="shell page narrow">
-    <p class="eyebrow">COMPETITIVE PROGRAMMING</p>
-    <h1>
-      观察、建模、验证、复盘<span>.</span>
-    </h1>
-    <p class="page-intro">让每一次思考成为下一次解题的起点。</p>
-    <div class="information-panel">
-      <h2>关注思考的过程</h2>
-      <p>这里将整理算法专题、训练方向和经审阅的竞赛复盘。</p>
-      <p>竞赛经历与成绩尚待补充，暂不展示动态 Rating 或未经核实的数据。</p>
-    </div>
+<Base
+  title="竞赛 — Whalica"
+  description="Whalica 的线上训练记录与线下竞赛履历。"
+>
+  <div class="shell page competition-page">
+    <header class="competition-intro">
+      <p class="eyebrow">COMPETITIVE PROGRAMMING</p>
+      <h1>
+        竞赛履历<span>.</span>
+      </h1>
+      <p class="page-intro">记录线上训练与线下竞赛，也记录每一次参赛经历。</p>
+      <nav class="competition-jump" aria-label="竞赛履历导航">
+        <a href="#online-judge">线上训练</a>
+        {seasons.map((season) => (
+          <a href={`#season-${season.year}`}>{season.year} 年</a>
+        ))}
+      </nav>
+    </header>
+
+    <section
+      class="competition-section"
+      id="online-judge"
+      aria-labelledby="online-heading"
+    >
+      <div class="competition-section-heading">
+        <h2 id="online-heading">线上训练</h2>
+        <p>Online Judge</p>
+      </div>
+      <p class="competition-note" id="rating-note">
+        以下为履历中记录的数据快照，不实时更新。
+      </p>
+      <div
+        class="oj-table-scroll"
+        tabindex="0"
+        role="region"
+        aria-label="线上训练数据，可横向滚动"
+        aria-describedby="rating-note"
+      >
+        <table class="oj-table">
+          <caption class="visually-hidden">
+            各 Online Judge 的 Rating、最高 Rating、题量与 Rated 比赛场次
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">平台</th>
+              <th scope="col">Rating</th>
+              <th scope="col">最高 Rating</th>
+              <th scope="col">题量</th>
+              <th scope="col">Rated 场次</th>
+            </tr>
+          </thead>
+          <tbody>
+            {competitions.onlineJudges.map((oj) => (
+              <tr>
+                <th scope="row">{oj.name}</th>
+                <td>{oj.rating}</td>
+                <td>{oj.maxRating}</td>
+                <td>{oj.solved}</td>
+                <td>{oj.ratedContests}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="competition-section" aria-labelledby="offline-heading">
+      <div class="competition-section-heading">
+        <h2 id="offline-heading">线下竞赛</h2>
+        <p>每一次参赛，都值得记录。</p>
+      </div>
+      {seasons.map((season) => (
+        <section
+          class="competition-season"
+          id={`season-${season.year}`}
+          aria-labelledby={`year-${season.year}`}
+        >
+          <div class="competition-year">
+            <h3 id={`year-${season.year}`}>{season.year}</h3>
+            <span>{season.entries.length} 场参赛</span>
+          </div>
+          <ul class="competition-list">
+            {season.entries.map((entry) => (
+              <li class="competition-entry">
+                <span class="competition-name">{entry.name}</span>
+                <span
+                  class:list={[
+                    "competition-result",
+                    {
+                      "competition-result-participated": entry.result === "无",
+                    },
+                  ]}
+                >
+                  {entry.result === "无" ? "参赛 · 未获奖" : entry.result}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </section>
   </div>
 </Base>
