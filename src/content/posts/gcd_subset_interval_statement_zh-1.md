@@ -1,3 +1,14 @@
+---
+title: "GCD Subset Interval"
+description: "给定数组，求使区间内存在子集且其 GCD 恰好为 k 的最短区间长度。"
+pubDate: 2026-10-20
+category: "算法与建模"
+tags: ["GCD", "算法竞赛", "数论"]
+featured: false
+draft: false
+demo: false
+---
+
 # D. GCD Subset Interval
 
 **时间限制：** 2 seconds  
