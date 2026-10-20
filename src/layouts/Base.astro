@@ -1,0 +1,145 @@
+---
+import "../styles/global.css";
+import { href } from "../lib/site";
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  title = "Whalica — Build. Think. Iterate.",
+  description = "记录算法思考、工程实践与持续探索。Whalica 的个人网站与技术手记。",
+  noindex = false,
+} = Astro.props;
+const nav = [
+  ["", "Home"],
+  ["blog/", "Blog"],
+  ["projects/", "Projects"],
+  ["cp/", "CP"],
+  ["about/", "About"],
+];
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : undefined;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href={href("favicon.svg")} type="image/svg+xml" />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem("theme");
+        document.documentElement.dataset.theme =
+          t ||
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">
+      跳至正文
+    </a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href={href()} aria-label="Whalica 首页">
+          <span class="mark">W.</span>
+          <span>
+            Whalica<span class="brand-dot">.</span>
+          </span>
+        </a>
+        <div class="nav-wrap">
+          <button
+            id="menu-toggle"
+            class="icon-button menu-toggle"
+            aria-expanded="false"
+            aria-controls="main-nav"
+          >
+            菜单
+          </button>
+          <nav id="main-nav" aria-label="主导航">
+            {nav.map(([path, label]) => (
+              <a
+                href={href(path)}
+                aria-current={
+                  (
+                    path
+                      ? Astro.url.pathname.startsWith(href(path))
+                      : Astro.url.pathname === href()
+                  )
+                    ? "page"
+                    : undefined
+                }
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+          <button
+            id="theme-toggle"
+            class="icon-button"
+            aria-label="切换深色模式"
+            title="切换明暗主题"
+          >
+            <span aria-hidden="true">◐</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="shell site-footer">
+      <div>
+        <a class="footer-name" href={href()}>
+          Whalica.
+        </a>
+        <p>Build. Think. Iterate.</p>
+      </div>
+      <div class="footer-right">
+        <span>Personal Website & Technical Journal</span>
+        <a href={href("blog/")}>技术手记 ↗</a>
+        {Astro.site && <a href={href("rss.xml")}>RSS ↗</a>}
+      </div>
+    </footer>
+    <script>
+      const menu = document.querySelector<HTMLButtonElement>("#menu-toggle");
+      menu?.addEventListener("click", () => {
+        const open = menu.getAttribute("aria-expanded") !== "true";
+        menu.setAttribute("aria-expanded", String(open));
+        document.querySelector("#main-nav")?.classList.toggle("open", open);
+      });
+      const theme = document.querySelector<HTMLButtonElement>("#theme-toggle");
+      function syncTheme() {
+        theme?.setAttribute(
+          "aria-label",
+          document.documentElement.dataset.theme === "dark"
+            ? "切换浅色模式"
+            : "切换深色模式",
+        );
+      }
+      syncTheme();
+      theme?.addEventListener("click", () => {
+        const next =
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try {
+          localStorage.setItem("theme", next);
+        } catch {}
+        syncTheme();
+      });
+    </script>
+  </body>
+</html>

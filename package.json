@@ -1,0 +1,32 @@
+{
+  "name": "whalica-personal-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/astro.mjs dev",
+    "check": "node scripts/astro.mjs check",
+    "build": "node scripts/astro.mjs build && node scripts/search-index.mjs",
+    "preview": "node scripts/astro.mjs preview",
+    "verify": "node scripts/verify.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.0",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "~6.4.8",
+    "katex": "^0.16.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.11",
+    "pagefind": "^1.5.2",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1",
+    "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": ">=22.22.0"
+  }
+}

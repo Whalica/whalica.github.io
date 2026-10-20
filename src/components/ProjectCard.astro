@@ -1,0 +1,25 @@
+---
+import { href } from "../lib/site";
+const { project, index = 0 } = Astro.props;
+---
+
+<a class="project-card" href={href("projects/" + project.id + "/")}>
+  <div class="project-top">
+    <span class="project-number">
+      0{index + 1} /{" "}
+      {project.data.kind === "community" ? "COMMUNITY" : "PROJECT"}
+    </span>
+    <span aria-hidden="true">↗</span>
+  </div>
+  <div class="project-symbol" aria-hidden="true">
+    {project.id === "coach" ? "⌘" : "{ }"}
+    <span class="symbol-line"></span>
+  </div>
+  <h3>{project.data.title}</h3>
+  <p>{project.data.summary}</p>
+  <div class="card-bottom">
+    <span class="status-dot"></span>
+    {project.data.status}
+    <span class="card-link">查看项目 →</span>
+  </div>
+</a>

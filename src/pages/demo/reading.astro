@@ -1,0 +1,11 @@
+---
+import { getEntry, render } from "astro:content";
+import Article from "../../layouts/Article.astro";
+const post = await getEntry("posts", "reading-demo");
+if (!post) throw new Error("Missing demo");
+const { Content, headings } = await render(post);
+---
+
+<Article post={post} headings={headings}>
+  <Content />
+</Article>

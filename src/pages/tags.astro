@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { href } from "../lib/site";
+const posts = await getCollection(
+  "posts",
+  (p) => !p.data.draft && !p.data.demo,
+);
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+---
+
+<Base title="Tags — Whalica">
+  <div class="shell page narrow">
+    <p class="eyebrow">TOPICS</p>
+    <h1>
+      标签<span>.</span>
+    </h1>
+    {tags.length ? (
+      tags.map((tag) => (
+        <section id={tag}>
+          <h2>{tag}</h2>
+          {posts
+            .filter((p) => p.data.tags.includes(tag))
+            .map((p) => (
+              <p>
+                <a href={href("blog/" + p.id + "/")}>{p.data.title}</a>
+              </p>
+            ))}
+        </section>
+      ))
+    ) : (
+      <p class="page-intro">正式文章发布后，标签会自动出现在这里。</p>
+    )}
+  </div>
+</Base>
