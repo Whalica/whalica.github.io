@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+const hasPosts =
+  (await getCollection("posts", (p) => !p.data.draft && !p.data.demo)).length >
+  0;
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/site";
+---
+
+<Base title="Search — Whalica" noindex>
+  <div class="shell page narrow" data-pagefind-ignore>
+    <p class="eyebrow">SEARCH THE JOURNAL</p>
+    <h1>
+      搜索手记<span>.</span>
+    </h1>
+    <label for="search-input">文章关键词</label>
+    <div class="search-box">
+      <input
+        id="search-input"
+        type="search"
+        placeholder="搜索标题或正文…"
+        autocomplete="off"
+        data-index={href("pagefind/pagefind.js")}
+        data-empty={String(!hasPosts)}
+      />
+    </div>
+    <p id="search-status" role="status">
+      输入关键词搜索已发布文章。演示文章不参与搜索。
+    </p>
+    <ul id="search-results"></ul>
+  </div>
+  <script>
+    const input = document.querySelector<HTMLInputElement>("#search-input");
+    const status = document.querySelector("#search-status");
+    const list = document.querySelector("#search-results");
+    let generation = 0;
+    input?.addEventListener("input", async () => {
+      const current = ++generation;
+      const q = input.value.trim();
+      list?.replaceChildren();
+      if (!q) {
+        if (status) status.textContent = "请输入关键词。";
+        return;
+      }
+      if (input.dataset.empty === "true") {
+        if (status) status.textContent = "暂无已发布文章，欢迎稍后再来。";
+        return;
+      }
+      try {
+        const path = input.dataset.index!;
+        const pagefind = await import(/* @vite-ignore */ path);
+        const results = await pagefind.search(q);
+        const items = await Promise.all(
+          results.results
+            .slice(0, 15)
+            .map(
+              (r: {
+                data: () => Promise<{ url: string; meta: { title: string } }>;
+              }) => r.data(),
+            ),
+        );
+        if (current !== generation) return;
+        if (status)
+          status.textContent = items.length
+            ? "找到 " + items.length + " 篇文章"
+            : "暂无匹配的已发布文章。";
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = item.url;
+          a.textContent = item.meta.title;
+          li.append(a);
+          list?.append(li);
+        });
+      } catch {
+        if (current === generation && status)
+          status.textContent = "搜索暂不可用，请稍后再试。";
+      }
+    });
+  </script>
+</Base>

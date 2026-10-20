@@ -1,0 +1,44 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { href } from "../../lib/site";
+export async function getStaticPaths() {
+  return (await getCollection("projects")).map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+const { project } = Astro.props;
+---
+
+<Base title={project.data.title + " — Whalica"}>
+  <div class="shell page narrow">
+    <a class="back-link" href={href("projects/")}>
+      ← 全部项目
+    </a>
+    <p class="eyebrow">
+      {project.data.kind === "community" ? "COMMUNITY" : "PROJECT"}
+    </p>
+    <h1>{project.data.title}</h1>
+    <p class="page-intro">{project.data.summary}</p>
+    <div class="information-panel">
+      <span class="quiet-label">{project.data.status}</span>
+      <h2>
+        {project.data.kind === "community"
+          ? "社区资料待补充"
+          : "项目档案待完善"}
+      </h2>
+      <p>
+        {project.data.kind === "community"
+          ? "此处为开发者社区与组织入口。"
+          : "此处将补充项目背景、本人角色、架构与设计取舍、实际成果和真实截图。"}
+      </p>
+      <p>当前未提供可核实的完整资料，因此暂不展示技术栈、职责或成果声明。</p>
+      {project.data.links.map((link) => (
+        <a href={link.url} target="_blank" rel="noopener noreferrer">
+          {link.label} ↗
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

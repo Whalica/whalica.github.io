@@ -1,0 +1,54 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { href, categories, date } from "../../lib/site";
+const posts = (
+  await getCollection("posts", (p) => !p.data.draft && !p.data.demo)
+).sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate));
+---
+
+<Base title="Blog · 技术手记 — Whalica">
+  <div class="shell page">
+    <p class="eyebrow">TECHNICAL JOURNAL</p>
+    <h1>
+      技术手记<span>.</span>
+    </h1>
+    <p class="page-intro">
+      记录问题、推导和实现，也记录那些值得重新思考的瞬间。
+    </p>
+    <div class="blog-tools">
+      <a href={href("search/")}>搜索文章 ↗</a>
+      <a href={href("tags/")}>标签</a>
+      <a href={href("archives/")}>归档</a>
+    </div>
+    <div class="categories">
+      {categories.map((c) => (
+        <span>{c}</span>
+      ))}
+    </div>
+    {posts.length ? (
+      posts.map((p) => (
+        <a class="post-row" href={href("blog/" + p.id + "/")}>
+          <span>{p.data.category}</span>
+          <h2>{p.data.title}</h2>
+          <time>{date(p.data.pubDate!)}</time>
+        </a>
+      ))
+    ) : (
+      <div class="empty-state">
+        <span class="eyebrow">A SPACE FOR THOUGHT</span>
+        <h2>第一篇手记，正在酝酿。</h2>
+        <p>正式文章会在审阅完成后出现在这里。</p>
+      </div>
+    )}
+    <div class="demo-note">
+      <div>
+        <strong>文章阅读体验预览</strong>
+        <p>中文、LaTeX 公式与 C++ 代码的排版演示。非正式文章。</p>
+      </div>
+      <a class="text-link" href={href("demo/reading/")}>
+        打开演示 →
+      </a>
+    </div>
+  </div>
+</Base>

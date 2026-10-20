@@ -1,0 +1,27 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { href, date } from "../lib/site";
+const posts = (
+  await getCollection("posts", (p) => !p.data.draft && !p.data.demo)
+).sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate));
+---
+
+<Base title="Archives — Whalica">
+  <div class="shell page narrow">
+    <p class="eyebrow">ARCHIVES</p>
+    <h1>
+      文章归档<span>.</span>
+    </h1>
+    {posts.length ? (
+      posts.map((p) => (
+        <p>
+          <time>{date(p.data.pubDate!)}</time> ·{" "}
+          <a href={href("blog/" + p.id + "/")}>{p.data.title}</a>
+        </p>
+      ))
+    ) : (
+      <p class="page-intro">暂无正式发布的文章。</p>
+    )}
+  </div>
+</Base>

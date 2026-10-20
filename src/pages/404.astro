@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/site";
+---
+
+<Base title="404 — Whalica" noindex>
+  <div class="shell page narrow">
+    <p class="eyebrow">404 / PAGE NOT FOUND</p>
+    <h1>
+      这里还没有内容<span>.</span>
+    </h1>
+    <p class="page-intro">页面可能已移动，或尚未创建。</p>
+    <a class="button primary" href={href()}>
+      返回首页 →
+    </a>
+  </div>
+</Base>

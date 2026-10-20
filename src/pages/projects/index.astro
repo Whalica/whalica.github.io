@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base title="Projects — Whalica">
+  <div class="shell page">
+    <p class="eyebrow">SELECTED WORK</p>
+    <h1>
+      作品与协作<span>.</span>
+    </h1>
+    <p class="page-intro">软件工程实践，以及开放协作中的持续探索。</p>
+    <div class="project-grid">
+      {projects.map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))}
+    </div>
+  </div>
+</Base>

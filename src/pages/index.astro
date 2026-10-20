@@ -1,0 +1,155 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+import { href, date } from "../lib/site";
+const projects = (await getCollection("projects", (p) => p.data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const posts = (
+  await getCollection(
+    "posts",
+    (p) => !p.data.draft && !p.data.demo && p.data.featured,
+  )
+)
+  .sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate))
+  .slice(0, 3);
+---
+
+<Base>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">
+          <span></span> PERSONAL WEBSITE & TECHNICAL JOURNAL
+        </p>
+        <h1>
+          Build.
+          <br />
+          Think. <span>Iterate.</span>
+        </h1>
+        <div class="hero-identity">
+          Whalica <span>/ Software Engineering Undergraduate</span>
+        </div>
+        <p class="hero-description">
+          算法竞赛 + 开源软件开发。
+          <br />
+          记录算法思考、工程实践与持续探索。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href={href("projects/")}>
+            探索我的项目 <span>↗</span>
+          </a>
+          <a class="text-link" href={href("blog/")}>
+            阅读技术手记 <span>→</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="art-label">WHALICA / PERSONAL SPACE</span>
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="art-w">
+          W<span>.</span>
+        </div>
+        <div class="art-cross cross-one">+</div>
+        <div class="art-cross cross-two">+</div>
+        <div class="art-note">
+          <span>01 — OBSERVE</span>
+          <span>02 — BUILD</span>
+          <span>03 — REFINE</span>
+        </div>
+        <span class="art-coordinate">IDEAS → SYSTEMS</span>
+      </div>
+    </section>
+    <section class="home-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / FEATURED PROJECTS</p>
+          <h2>
+            把想法，做成作品<span>.</span>
+          </h2>
+        </div>
+        <a class="text-link" href={href("projects/")}>
+          全部项目 ↗
+        </a>
+      </div>
+      <div class="project-grid">
+        {projects.map((project, index) => (
+          <ProjectCard project={project} index={index} />
+        ))}
+      </div>
+      <a class="community-strip" href={href("projects/lica/")}>
+        <span class="community-icon" aria-hidden="true">
+          ↗
+        </span>
+        <div>
+          <strong>Lica Studio</strong>
+          <span>开放式开发者社区与组织入口</span>
+        </div>
+        <span class="community-caption">COMMUNITY / 了解更多 →</span>
+      </a>
+    </section>
+    <section class="home-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / SELECTED WRITING</p>
+          <h2>
+            思考的过程，也值得记录<span>.</span>
+          </h2>
+        </div>
+        <a class="text-link" href={href("blog/")}>
+          全部手记 ↗
+        </a>
+      </div>
+      {posts.length ? (
+        posts.map((p) => (
+          <a class="post-row" href={href("blog/" + p.id + "/")}>
+            <span>{p.data.category}</span>
+            <h3>{p.data.title}</h3>
+            <time>{date(p.data.pubDate!)}</time>
+          </a>
+        ))
+      ) : (
+        <div class="writing-empty">
+          <span class="writing-icon" aria-hidden="true">
+            ≡
+          </span>
+          <div>
+            <h3>手记正在整理中</h3>
+            <p>这里将收录算法与建模、竞赛复盘，以及软件工程中的真实思考。</p>
+          </div>
+          <span class="quiet-label">WRITING, IN PROGRESS</span>
+        </div>
+      )}
+    </section>
+    <section class="cp-panel">
+      <div>
+        <p class="eyebrow">03 / COMPETITIVE PROGRAMMING</p>
+        <h2>
+          从一次观察，
+          <br />
+          走向一个清晰的解法。
+        </h2>
+        <p>关注思考路径，也关注每一次验证与复盘。</p>
+        <a class="text-link" href={href("cp/")}>
+          算法与竞赛 →
+        </a>
+      </div>
+      <ol class="thinking-steps">
+        {[
+          ["Observe", "观察问题"],
+          ["Model", "抽象建模"],
+          ["Verify", "验证推导"],
+          ["Reflect", "复盘沉淀"],
+        ].map(([en, zh], i) => (
+          <li>
+            <span>0{i + 1}</span>
+            <strong>{en}</strong>
+            <span>{zh}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+</Base>
