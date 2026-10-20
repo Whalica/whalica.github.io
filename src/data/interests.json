@@ -1,11 +1,11 @@
 {
   "rhythmGames": [
-    { "name": "Arcaea", "metric": "PTT", "value": null, "achievements": [] },
-    { "name": "Phigros", "metric": "RKS", "value": null, "achievements": [] },
+    { "name": "Arcaea", "metric": "PTT", "value": "13.120", "achievements": ["三星"] },
+    { "name": "Phigros", "metric": "RKS", "value": "16.29", "achievements": ["蓝49"] },
     {
       "name": "Malody",
-      "metric": "成绩记录",
-      "value": null,
+      "metric": "Regular Dan Course v3",
+      "value": "6dan",
       "achievements": []
     }
   ],
