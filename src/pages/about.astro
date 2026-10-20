@@ -1,8 +1,21 @@
 ---
 import Base from "../layouts/Base.astro";
+import interests from "../data/interests.json";
+interface RhythmGame {
+  name: string;
+  metric: string;
+  value: number | string | null;
+  achievements: string[];
+}
+interface OtherInterest {
+  name: string;
+  works: string[];
+}
+const rhythmGames: RhythmGame[] = interests.rhythmGames;
+const otherInterests: OtherInterest[] = interests.otherInterests;
 ---
 
-<Base title="About — Whalica">
+<Base title="关于 — Whalica">
   <div class="shell page narrow">
     <p class="eyebrow">A LITTLE ABOUT ME</p>
     <h1>
@@ -18,5 +31,69 @@ import Base from "../layouts/Base.astro";
       <p>记录算法思考、工程实践与持续探索。</p>
       <p>详细教育背景、个人简介与公开联系方式待补充。</p>
     </div>
+    <section class="interests-section" aria-labelledby="interests-heading">
+      <p class="eyebrow">BEYOND THE CODE</p>
+      <h2 id="interests-heading">爱好与成就</h2>
+      <p class="interests-intro">代码之外，也记录游戏、绘画与媒体创作。</p>
+      <section aria-labelledby="rhythm-heading">
+        <div class="interests-heading">
+          <h3 id="rhythm-heading">音游</h3>
+          <span>成绩与个人记录</span>
+        </div>
+        <div class="rhythm-grid">
+          {rhythmGames.map((game) => (
+            <article class="rhythm-card">
+              <h4>{game.name}</h4>
+              <dl class="rhythm-stat">
+                <dt>{game.metric}</dt>
+                <dd
+                  class:list={[
+                    {
+                      "rhythm-stat-empty":
+                        game.value === null || game.value === "",
+                    },
+                  ]}
+                >
+                  {game.value === null || game.value === ""
+                    ? "待填写"
+                    : game.value}
+                </dd>
+              </dl>
+              {game.achievements.length ? (
+                <ul class="interest-records">
+                  {game.achievements.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="interest-empty">成就记录待补充</p>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+      <section class="other-interests" aria-labelledby="creative-heading">
+        <div class="interests-heading">
+          <h3 id="creative-heading">更多兴趣</h3>
+          <span>游戏与创作</span>
+        </div>
+        <div class="creative-list">
+          {otherInterests.map((interest) => (
+            <article class="creative-entry">
+              <h4>{interest.name}</h4>
+              {interest.works.length ? (
+                <ul class="interest-records">
+                  {interest.works.map((work) => (
+                    <li>{work}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="interest-empty">作品与记录待补充</p>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
   </div>
 </Base>

@@ -7,16 +7,16 @@ interface Props {
   noindex?: boolean;
 }
 const {
-  title = "Whalica — Build. Think. Iterate.",
+  title = "Whalica — 个人网站与技术手记",
   description = "记录算法思考、工程实践与持续探索。Whalica 的个人网站与技术手记。",
   noindex = false,
 } = Astro.props;
 const nav = [
-  ["", "Home"],
-  ["blog/", "Blog"],
-  ["projects/", "Projects"],
-  ["cp/", "CP"],
-  ["about/", "About"],
+  ["", "首页"],
+  ["blog/", "博客"],
+  ["projects/", "项目"],
+  ["cp/", "竞赛"],
+  ["about/", "关于"],
 ];
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
