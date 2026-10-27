@@ -2,7 +2,7 @@
 title: "作业2 · 关系代数（21题）全解析"
 description: ""
 pubDate: 2026-10-27
-category: "专业课"
+category: "学习与研究"
 tags: ["数据库"]
 featured: false
 draft: false

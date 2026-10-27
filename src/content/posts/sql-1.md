@@ -2,7 +2,7 @@
 title: "作业1 · 数据库基础（35题）全解析"
 description: ""
 pubDate: 2026-10-27
-category: "专业课"
+category: "学习与研究"
 tags: ["数据库"]
 featured: false
 draft: false
