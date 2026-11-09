@@ -185,14 +185,10 @@ const topicNotes: Record<string, string> = {
                 <input type="checkbox" value={p.id} />
                 <span class="visually-hidden">选择《{p.data.title}》</span>
               </label>
-              <div class="post-item-date">
-                <time datetime={p.data.pubDate!.toISOString()}>
-                  {date(p.data.pubDate!)}
-                </time>
-              </div>
               <a class="post-item-link" href={href("blog/" + p.id + "/")}>
                 <div class="post-item-head">
                   <h2>{p.data.title}</h2>
+                  <time>{date(p.data.pubDate!)}</time>
                 </div>
                 <p>{p.data.description}</p>
                 <div class="post-item-tags">
