@@ -100,13 +100,19 @@ p {
   font-weight: 700;
 }
 .mark {
-  width: 34px;
-  height: 34px;
-  background: #315ac5;
-  color: #fff;
-  border-radius: 8px;
-  text-align: center;
-  line-height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #e9eef7;
+  overflow: hidden;
+}
+.mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .brand-dot {
   color: var(--accent);
@@ -1215,10 +1221,9 @@ html[data-theme="dark"] .astro-code span {
     font-size: 20px;
   }
   .mark {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
   }
   .nav-wrap {
     gap: 10px;
