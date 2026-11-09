@@ -671,11 +671,21 @@ nav {
   width: 16px;
   height: 16px;
 }
+.filter-toggle .icon-close {
+  display: none;
+}
+.picking .filter-toggle .icon-pick {
+  display: none;
+}
+.picking .filter-toggle .icon-close {
+  display: block;
+}
 .filter-toggle:hover:not(:disabled) {
   border-color: var(--accent);
   color: var(--accent);
 }
-.filter-toggle[aria-expanded="true"] {
+.filter-toggle[aria-expanded="true"],
+.filter-toggle[aria-pressed="true"] {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--soft);
@@ -782,7 +792,6 @@ nav {
   text-decoration-color: var(--accent);
 }
 .link-button {
-  margin-left: auto;
   padding: 0;
   border: 0;
   background: none;
@@ -792,24 +801,72 @@ nav {
 .link-button:hover {
   color: var(--accent);
 }
+.select-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--subtle);
+}
+.select-bar[hidden] {
+  display: none;
+}
+.select-count {
+  font-size: 13px;
+  color: var(--muted);
+}
+.batch-download {
+  margin-left: auto;
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background-color 0.16s ease;
+}
+.batch-download:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.batch-download:hover:not(:disabled) {
+  background: var(--soft);
+}
+.batch-download:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 .post-list {
   border-top: 1px solid var(--border);
   margin-top: 16px;
 }
 .post-item {
+  display: block;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+.picking .post-item {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 14px;
   align-items: start;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--border);
+  cursor: pointer;
 }
 .post-item[hidden] {
   display: none;
 }
 .post-select {
-  display: flex;
+  display: none;
   padding-top: 8px;
+}
+.picking .post-select {
+  display: flex;
 }
 .post-select input {
   width: 15px;
