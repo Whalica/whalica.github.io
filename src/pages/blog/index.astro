@@ -5,10 +5,9 @@ import { href, categories, date } from "../../lib/site";
 const posts = (
   await getCollection("posts", (p) => !p.data.draft && !p.data.demo)
 ).sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate));
-const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort((a, b) =>
-  a.localeCompare(b, "zh-CN"),
-);
-const filters = [...categories, ...tags.filter((t) => !categories.includes(t))];
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))]
+  .filter((t) => !categories.includes(t))
+  .sort((a, b) => a.localeCompare(b, "zh-CN"));
 const searchable = (post: (typeof posts)[number]) =>
   [post.data.title, post.data.description, post.data.category, ...post.data.tags]
     .join(" ")
@@ -59,20 +58,32 @@ const empty = posts.length === 0;
     </div>
     <div class="filter-panel" id="filter-panel" hidden>
       <div class="filter-group">
-        <span class="quiet-label">按标签筛选</span>
-        <div class="filter-chips">
-          {filters.map((tag) => (
+        <span class="quiet-label">特殊标签</span>
+        <div class="filter-chips filter-chips--special">
+          {categories.map((c) => (
             <button
               type="button"
-              data-chip={tag}
+              data-chip={c}
               aria-pressed="false"
               disabled={empty}
             >
-              {tag}
+              {c}
             </button>
           ))}
         </div>
       </div>
+      {tags.length > 0 && (
+        <div class="filter-group">
+          <span class="quiet-label">标签</span>
+          <div class="filter-chips">
+            {tags.map((tag) => (
+              <button type="button" data-chip={tag} aria-pressed="false">
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       <div class="filter-links">
         <a href={href("tags/")}>全部标签 ↗</a>
         <a href={href("archives/")}>归档 ↗</a>
@@ -102,28 +113,46 @@ const empty = posts.length === 0;
       </div>
     ) : (
       <>
+        <div class="post-batch">
+          <label class="batch-all">
+            <input type="checkbox" id="select-all" />
+            <span>全选</span>
+          </label>
+          <button
+            type="button"
+            class="batch-download"
+            id="download-selected"
+            disabled
+          >
+            下载所选 .md
+          </button>
+        </div>
         <div class="post-list" id="post-list">
           {posts.map((p) => (
-            <a
+            <div
               class="post-item"
-              href={href("blog/" + p.id + "/")}
               data-tags={[p.data.category, ...p.data.tags].join(" ")}
               data-search={searchable(p)}
+              data-md={href("posts/" + p.id + ".md")}
             >
-              <div class="post-item-head">
-                <span>{p.data.category}</span>
-                <time>{date(p.data.pubDate!)}</time>
-              </div>
-              <h2>{p.data.title}</h2>
-              <p>{p.data.description}</p>
-              {p.data.tags.length > 0 && (
+              <label class="post-select">
+                <input type="checkbox" value={p.id} />
+                <span class="visually-hidden">选择《{p.data.title}》</span>
+              </label>
+              <a class="post-item-link" href={href("blog/" + p.id + "/")}>
+                <div class="post-item-head">
+                  <h2>{p.data.title}</h2>
+                  <time>{date(p.data.pubDate!)}</time>
+                </div>
+                <p>{p.data.description}</p>
                 <div class="post-item-tags">
+                  <span class="tag-special">{p.data.category}</span>
                   {p.data.tags.map((tag) => (
                     <span>#{tag}</span>
                   ))}
                 </div>
-              )}
-            </a>
+              </a>
+            </div>
           ))}
         </div>
         <p class="post-none" id="post-none" hidden>
@@ -135,6 +164,8 @@ const empty = posts.length === 0;
 </Base>
 
 <script>
+  import { createZip } from "../../lib/zip";
+
   const input = document.querySelector<HTMLInputElement>("#post-filter");
   const list = document.querySelector<HTMLElement>("#post-list");
   const toggle = document.querySelector<HTMLButtonElement>("#filter-toggle");
@@ -190,5 +221,89 @@ const empty = posts.length === 0;
         apply();
       });
     }
+  }
+
+  const selectAll = document.querySelector<HTMLInputElement>("#select-all");
+  const downloadBtn = document.querySelector<HTMLButtonElement>(
+    "#download-selected",
+  );
+
+  if (list && selectAll && downloadBtn) {
+    const rows = Array.from(list.querySelectorAll<HTMLElement>(".post-item"));
+    const boxes = rows
+      .map((row) => row.querySelector<HTMLInputElement>("input[type=checkbox]"))
+      .filter((box): box is HTMLInputElement => box !== null);
+
+    const selected = () => boxes.filter((box) => box.checked);
+
+    const sync = () => {
+      const picked = selected().length;
+      downloadBtn.disabled = picked === 0;
+      downloadBtn.textContent =
+        picked === 0 ? "下载所选 .md" : `下载所选 .md（${picked}）`;
+      const visible = boxes.filter(
+        (box) => !box.closest<HTMLElement>(".post-item")?.hidden,
+      );
+      const checkedVisible = visible.filter((box) => box.checked).length;
+      selectAll.checked = visible.length > 0 && checkedVisible === visible.length;
+      selectAll.indeterminate =
+        checkedVisible > 0 && checkedVisible < visible.length;
+    };
+
+    selectAll.addEventListener("change", () => {
+      for (const box of boxes) {
+        const row = box.closest<HTMLElement>(".post-item");
+        if (row && !row.hidden) box.checked = selectAll.checked;
+      }
+      sync();
+    });
+
+    for (const box of boxes) box.addEventListener("change", sync);
+
+    downloadBtn.addEventListener("click", async () => {
+      const rows = selected()
+        .map((box) => box.closest<HTMLElement>(".post-item"))
+        .filter((row): row is HTMLElement => row !== null);
+      if (rows.length === 0) return;
+
+      const label = downloadBtn.textContent;
+      downloadBtn.disabled = true;
+      downloadBtn.textContent = "打包中…";
+      try {
+        const encoder = new TextEncoder();
+        const entries = await Promise.all(
+          rows.map(async (row) => {
+            const url = row.dataset.md ?? "";
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(url);
+            return {
+              name: decodeURIComponent(url.split("/").pop() ?? "post.md"),
+              data: encoder.encode(await response.text()),
+            };
+          }),
+        );
+        const blob = new Blob([createZip(entries)], {
+          type: "application/zip",
+        });
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = href;
+        link.download = "whalica-posts-md.zip";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(href), 1000);
+      } catch {
+        downloadBtn.textContent = "打包失败，请重试";
+        setTimeout(() => {
+          downloadBtn.textContent = label;
+          sync();
+        }, 1800);
+        return;
+      }
+      sync();
+    });
+
+    sync();
   }
 </script>

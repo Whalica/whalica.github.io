@@ -13,6 +13,7 @@ export default defineConfig({
     ? [
         sitemap({
           filter: (url) =>
+            !url.endsWith(".md") &&
             !["/demo/", "/search/", "/404"].some((path) =>
               new URL(url).pathname.includes(path),
             ),
