@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import BrandMark from "../components/BrandMark.astro";
 import { href } from "../lib/site";
 interface Props {
   title?: string;
@@ -56,9 +55,7 @@ const canonical = Astro.site
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href={href()} aria-label="Whalica 首页">
-          <span class="mark">
-            <BrandMark />
-          </span>
+          <span class="mark">W.</span>
           <span>
             Whalica<span class="brand-dot">.</span>
           </span>

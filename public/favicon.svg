@@ -1,11 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#e9eef7" />
-  <path d="M16 26c0-9.4 7.2-15.4 16-15.4S48 16.6 48 26v18c0 4-3.2 7-7.2 7H23.2c-4 0-7.2-3-7.2-7Z" fill="#3a4340" />
-  <circle cx="32" cy="27" r="12.4" fill="#fbe8db" />
-  <path d="M19.6 26.4c0-7.6 5.6-13 12.4-13s12.4 5.4 12.4 13c-2.5-1-4-3.6-5.1-6.1-1.4 2.9-3.4 5.1-6.2 6.3-1.4-3-2.4-5-3.8-6-1.2 3-3.2 5-5.8 5.8-1.3.4-2.6.4-3.9 0Z" fill="#3a4340" />
-  <rect x="24.6" y="29.4" width="5" height="2.6" rx="1.3" fill="#333033" />
-  <rect x="34.4" y="29.4" width="5" height="2.6" rx="1.3" fill="#333033" />
-  <g transform="rotate(-32 32 47)">
-    <rect x="12" y="43" width="40" height="8.6" rx="4.3" fill="#4f8f3c" stroke="#35632a" stroke-width="1.4" />
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#315AC5"/><text x="8" y="46" fill="white" font-family="Arial,sans-serif" font-size="42" font-weight="700">W.</text></svg>
