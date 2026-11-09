@@ -33,6 +33,27 @@ const empty = posts.length === 0;
         {empty ? "暂无文章" : `共 ${posts.length} 篇`}
       </span>
       <button
+        id="download-selected"
+        class="filter-toggle"
+        type="button"
+        aria-label="下载所选文章的 Markdown"
+        title="下载所选文章的 Markdown"
+        disabled
+      >
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M8 2.6v7.1M5.1 6.9 8 9.8l2.9-2.9M2.9 12.6h10.2" />
+        </svg>
+        <span class="filter-count" id="selected-count" hidden></span>
+      </button>
+      <button
         id="filter-toggle"
         class="filter-toggle"
         type="button"
@@ -58,7 +79,7 @@ const empty = posts.length === 0;
     </div>
     <div class="filter-panel" id="filter-panel" hidden>
       <div class="filter-group">
-        <span class="quiet-label">特殊标签</span>
+        <span class="quiet-label">分类</span>
         <div class="filter-chips filter-chips--special">
           {categories.map((c) => (
             <button
@@ -88,6 +109,11 @@ const empty = posts.length === 0;
         <a href={href("tags/")}>全部标签 ↗</a>
         <a href={href("archives/")}>归档 ↗</a>
         {Astro.site && <a href={href("rss.xml")}>RSS ↗</a>}
+        {!empty && (
+          <button type="button" class="link-button" id="select-all">
+            全选
+          </button>
+        )}
       </div>
     </div>
     {empty ? (
@@ -113,20 +139,6 @@ const empty = posts.length === 0;
       </div>
     ) : (
       <>
-        <div class="post-batch">
-          <label class="batch-all">
-            <input type="checkbox" id="select-all" />
-            <span>全选</span>
-          </label>
-          <button
-            type="button"
-            class="batch-download"
-            id="download-selected"
-            disabled
-          >
-            下载所选 .md
-          </button>
-        </div>
         <div class="post-list" id="post-list">
           {posts.map((p) => (
             <div
@@ -223,12 +235,13 @@ const empty = posts.length === 0;
     }
   }
 
-  const selectAll = document.querySelector<HTMLInputElement>("#select-all");
+  const selectAll = document.querySelector<HTMLButtonElement>("#select-all");
   const downloadBtn = document.querySelector<HTMLButtonElement>(
     "#download-selected",
   );
+  const selectedCount = document.querySelector<HTMLElement>("#selected-count");
 
-  if (list && selectAll && downloadBtn) {
+  if (list && downloadBtn) {
     const rows = Array.from(list.querySelectorAll<HTMLElement>(".post-item"));
     const boxes = rows
       .map((row) => row.querySelector<HTMLInputElement>("input[type=checkbox]"))
@@ -239,40 +252,43 @@ const empty = posts.length === 0;
     const sync = () => {
       const picked = selected().length;
       downloadBtn.disabled = picked === 0;
-      downloadBtn.textContent =
-        picked === 0 ? "下载所选 .md" : `下载所选 .md（${picked}）`;
+      if (selectedCount) {
+        selectedCount.textContent = picked > 0 ? String(picked) : "";
+        selectedCount.hidden = picked === 0;
+      }
+      if (!selectAll) return;
       const visible = boxes.filter(
         (box) => !box.closest<HTMLElement>(".post-item")?.hidden,
       );
-      const checkedVisible = visible.filter((box) => box.checked).length;
-      selectAll.checked = visible.length > 0 && checkedVisible === visible.length;
-      selectAll.indeterminate =
-        checkedVisible > 0 && checkedVisible < visible.length;
+      const allPicked =
+        visible.length > 0 && visible.every((box) => box.checked);
+      selectAll.textContent = allPicked ? "取消全选" : "全选";
     };
 
-    selectAll.addEventListener("change", () => {
-      for (const box of boxes) {
-        const row = box.closest<HTMLElement>(".post-item");
-        if (row && !row.hidden) box.checked = selectAll.checked;
-      }
+    selectAll?.addEventListener("click", () => {
+      const visible = boxes.filter(
+        (box) => !box.closest<HTMLElement>(".post-item")?.hidden,
+      );
+      const allPicked =
+        visible.length > 0 && visible.every((box) => box.checked);
+      for (const box of visible) box.checked = !allPicked;
       sync();
     });
 
     for (const box of boxes) box.addEventListener("change", sync);
 
     downloadBtn.addEventListener("click", async () => {
-      const rows = selected()
+      const pickedRows = selected()
         .map((box) => box.closest<HTMLElement>(".post-item"))
         .filter((row): row is HTMLElement => row !== null);
-      if (rows.length === 0) return;
+      if (pickedRows.length === 0) return;
 
-      const label = downloadBtn.textContent;
       downloadBtn.disabled = true;
-      downloadBtn.textContent = "打包中…";
+      downloadBtn.classList.add("busy");
       try {
         const encoder = new TextEncoder();
         const entries = await Promise.all(
-          rows.map(async (row) => {
+          pickedRows.map(async (row) => {
             const url = row.dataset.md ?? "";
             const response = await fetch(url);
             if (!response.ok) throw new Error(url);
@@ -294,14 +310,15 @@ const empty = posts.length === 0;
         link.remove();
         setTimeout(() => URL.revokeObjectURL(href), 1000);
       } catch {
-        downloadBtn.textContent = "打包失败，请重试";
+        downloadBtn.title = "打包失败，请重试";
         setTimeout(() => {
-          downloadBtn.textContent = label;
-          sync();
-        }, 1800);
+          downloadBtn.title = "下载所选文章的 Markdown";
+        }, 2000);
         return;
+      } finally {
+        downloadBtn.classList.remove("busy");
+        sync();
       }
-      sync();
     });
 
     sync();
