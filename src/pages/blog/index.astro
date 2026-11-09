@@ -5,80 +5,81 @@ import { href, categories, date } from "../../lib/site";
 const posts = (
   await getCollection("posts", (p) => !p.data.draft && !p.data.demo)
 ).sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate));
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort((a, b) =>
+  a.localeCompare(b, "zh-CN"),
+);
+const filters = [...categories, ...tags.filter((t) => !categories.includes(t))];
 const searchable = (post: (typeof posts)[number]) =>
   [post.data.title, post.data.description, post.data.category, ...post.data.tags]
     .join(" ")
     .toLowerCase();
+const empty = posts.length === 0;
 ---
 
 <Base title="博客 · 技术手记 — Whalica">
   <div class="shell page compact">
     <h1 class="visually-hidden">技术手记</h1>
-    <div class="post-tools">
+    <div class="post-bar">
       <label class="post-search">
-        <span class="visually-hidden">筛选文章</span>
+        <span class="visually-hidden">搜索文章</span>
         <input
           id="post-filter"
           type="search"
-          placeholder={posts.length
-            ? "筛选：标题、摘要或标签"
-            : "还没有文章可筛选"}
+          placeholder={empty ? "还没有文章可搜索" : "搜索标题、摘要或标签"}
           autocomplete="off"
-          disabled={posts.length === 0}
+          disabled={empty}
         />
       </label>
-      <div class="post-links">
-        <a href={href("tags/")}>标签 ↗</a>
+      <span class="post-count" id="post-count">
+        {empty ? "暂无文章" : `共 ${posts.length} 篇`}
+      </span>
+      <button
+        id="filter-toggle"
+        class="filter-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="filter-panel"
+        aria-label="筛选与浏览"
+        title="筛选与浏览"
+        disabled={empty}
+      >
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M2 2.5h12l-4.6 5.4v5.3l-2.8-1.4V7.9L2 2.5Z" />
+        </svg>
+        <span class="filter-count" id="filter-count" hidden></span>
+      </button>
+    </div>
+    <div class="filter-panel" id="filter-panel" hidden>
+      <div class="filter-group">
+        <span class="quiet-label">按标签筛选</span>
+        <div class="filter-chips">
+          {filters.map((tag) => (
+            <button
+              type="button"
+              data-chip={tag}
+              aria-pressed="false"
+              disabled={empty}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div class="filter-links">
+        <a href={href("tags/")}>全部标签 ↗</a>
         <a href={href("archives/")}>归档 ↗</a>
         {Astro.site && <a href={href("rss.xml")}>RSS ↗</a>}
       </div>
     </div>
-    <div class="post-filters">
-      {categories.map((c) => (
-        <button
-          type="button"
-          data-category={c}
-          aria-pressed="false"
-          disabled={posts.length === 0}
-        >
-          {c}
-        </button>
-      ))}
-      <span class="post-result" id="post-count" aria-live="polite">
-        {posts.length ? `共 ${posts.length} 篇` : "暂无文章"}
-      </span>
-    </div>
-    {posts.length ? (
-      <>
-        <div class="post-list" id="post-list">
-          {posts.map((p) => (
-            <a
-              class="post-item"
-              href={href("blog/" + p.id + "/")}
-              data-category={p.data.category}
-              data-search={searchable(p)}
-            >
-              <div class="post-item-head">
-                <span>{p.data.category}</span>
-                <time>{date(p.data.pubDate!)}</time>
-              </div>
-              <h2>{p.data.title}</h2>
-              <p>{p.data.description}</p>
-              {p.data.tags.length > 0 && (
-                <div class="post-item-tags">
-                  {p.data.tags.map((tag) => (
-                    <span>#{tag}</span>
-                  ))}
-                </div>
-              )}
-            </a>
-          ))}
-        </div>
-        <p class="post-none" id="post-none" hidden>
-          没有匹配的手记，换个关键词或点掉分类筛选再试试。
-        </p>
-      </>
-    ) : (
+    {empty ? (
       <div class="empty-state">
         <h2>第一篇手记，正在酝酿。</h2>
         <p>文章会在审阅完成后陆续出现在这里。想先了解这个地方，可以从下面几处开始。</p>
@@ -99,6 +100,36 @@ const searchable = (post: (typeof posts)[number]) =>
           )}
         </div>
       </div>
+    ) : (
+      <>
+        <div class="post-list" id="post-list">
+          {posts.map((p) => (
+            <a
+              class="post-item"
+              href={href("blog/" + p.id + "/")}
+              data-tags={[p.data.category, ...p.data.tags].join(" ")}
+              data-search={searchable(p)}
+            >
+              <div class="post-item-head">
+                <span>{p.data.category}</span>
+                <time>{date(p.data.pubDate!)}</time>
+              </div>
+              <h2>{p.data.title}</h2>
+              <p>{p.data.description}</p>
+              {p.data.tags.length > 0 && (
+                <div class="post-item-tags">
+                  {p.data.tags.map((tag) => (
+                    <span>#{tag}</span>
+                  ))}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+        <p class="post-none" id="post-none" hidden>
+          没有匹配的手记，换个关键词或点掉标签筛选再试试。
+        </p>
+      </>
     )}
   </div>
 </Base>
@@ -106,17 +137,25 @@ const searchable = (post: (typeof posts)[number]) =>
 <script>
   const input = document.querySelector<HTMLInputElement>("#post-filter");
   const list = document.querySelector<HTMLElement>("#post-list");
+  const toggle = document.querySelector<HTMLButtonElement>("#filter-toggle");
+  const panel = document.querySelector<HTMLElement>("#filter-panel");
+  const count = document.querySelector("#post-count");
+  const badge = document.querySelector<HTMLElement>("#filter-count");
+  const none = document.querySelector<HTMLElement>("#post-none");
+
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") !== "true";
+    toggle.setAttribute("aria-expanded", String(open));
+    if (panel) panel.hidden = !open;
+  });
+
   if (input && list) {
-    const items = Array.from(
-      list.querySelectorAll<HTMLElement>(".post-item"),
-    );
+    const items = Array.from(list.querySelectorAll<HTMLElement>(".post-item"));
     const chips = Array.from(
-      document.querySelectorAll<HTMLButtonElement>(".post-filters button"),
+      document.querySelectorAll<HTMLButtonElement>(".filter-chips button"),
     );
-    const count = document.querySelector("#post-count");
-    const none = document.querySelector<HTMLElement>("#post-none");
     const total = items.length;
-    let category = "";
+    let tag = "";
 
     const apply = () => {
       const query = input.value.trim().toLowerCase();
@@ -124,9 +163,9 @@ const searchable = (post: (typeof posts)[number]) =>
       for (const item of items) {
         const matchQuery =
           !query || (item.dataset.search ?? "").includes(query);
-        const matchCategory =
-          !category || item.dataset.category === category;
-        const visible = matchQuery && matchCategory;
+        const matchTag =
+          !tag || (item.dataset.tags ?? "").split(" ").includes(tag);
+        const visible = matchQuery && matchTag;
         item.hidden = !visible;
         if (visible) shown++;
       }
@@ -135,19 +174,19 @@ const searchable = (post: (typeof posts)[number]) =>
           shown === total ? `共 ${total} 篇` : `${shown} / ${total} 篇`;
       }
       if (none) none.hidden = shown > 0;
+      if (badge) {
+        badge.textContent = tag ? "1" : "";
+        badge.hidden = !tag;
+      }
       for (const chip of chips) {
-        chip.setAttribute(
-          "aria-pressed",
-          String(chip.dataset.category === category),
-        );
+        chip.setAttribute("aria-pressed", String(chip.dataset.chip === tag));
       }
     };
 
     input.addEventListener("input", apply);
     for (const chip of chips) {
       chip.addEventListener("click", () => {
-        category =
-          category === chip.dataset.category ? "" : chip.dataset.category!;
+        tag = tag === chip.dataset.chip ? "" : chip.dataset.chip!;
         apply();
       });
     }
