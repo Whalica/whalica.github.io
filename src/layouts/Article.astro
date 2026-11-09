@@ -23,13 +23,33 @@ const related = (
   noindex={post.data.demo}
 >
   <div class="shell article-shell">
-    <a class="back-link" href={href("blog/")}>
-      ← 返回技术手记
-    </a>
+    <div class="article-top">
+      <a class="back-link" href={href("blog/")}>
+        ← 返回技术手记
+      </a>
+      {!post.data.demo && (
+        <a
+          class="article-download"
+          href={href("posts/" + post.id + ".md")}
+          download={post.id + ".md"}
+        >
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 2.6v7.1M5.1 6.9 8 9.8l2.9-2.9M2.9 12.6h10.2" />
+          </svg>
+          下载 .md
+        </a>
+      )}
+    </div>
     <header class="article-header">
-      <p class="eyebrow">
-        {post.data.demo ? "READING PREVIEW / 排版演示" : post.data.category}
-      </p>
+      {post.data.demo && <p class="eyebrow">READING PREVIEW / 排版演示</p>}
       <h1>{post.data.title}</h1>
       <p class="article-description">{post.data.description}</p>
       <div class="article-meta">
@@ -48,6 +68,7 @@ const related = (
         )}
       </div>
       <div class="tags">
+        <span class="tag-special">{post.data.category}</span>
         {post.data.tags.map((tag: string) =>
           post.data.demo ? (
             <span>{tag}</span>
@@ -56,26 +77,6 @@ const related = (
           ),
         )}
       </div>
-      {!post.data.demo && (
-        <a
-          class="article-download"
-          href={href("posts/" + post.id + ".md")}
-          download={post.id + ".md"}
-        >
-          <svg
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M8 2.5v7.2M5 6.9l3 3 3-3M2.8 12.5h10.4" />
-          </svg>
-          下载 .md
-        </a>
-      )}
     </header>
     <div class="article-grid">
       <article

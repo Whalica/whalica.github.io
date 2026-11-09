@@ -562,11 +562,16 @@ nav {
 .information-panel p {
   font-size: 17px;
 }
+.article-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 36px;
+}
 .back-link {
   font-size: 14px;
   color: var(--muted);
-  display: inline-block;
-  margin-bottom: 40px;
 }
 .tags a {
   font-size: 13px;
@@ -654,6 +659,13 @@ nav {
   border-radius: 6px;
   background: transparent;
   color: var(--muted);
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background-color 0.16s ease;
+}
+.filter-toggle.busy {
+  opacity: 0.5;
 }
 .filter-toggle svg {
   width: 16px;
@@ -712,10 +724,15 @@ nav {
   border-radius: 4px;
   background: transparent;
   color: var(--muted);
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background-color 0.16s ease;
 }
-.filter-chips button:hover:not(:disabled) {
+.filter-chips button:hover:not(:disabled):not([aria-pressed="true"]) {
   border-color: var(--accent);
   color: var(--accent);
+  background: var(--soft);
 }
 .filter-chips button:disabled {
   opacity: 0.55;
@@ -738,65 +755,46 @@ nav {
   border-color: var(--accent);
   color: var(--bg);
 }
+.filter-chips--special button[aria-pressed="true"]:hover:not(:disabled) {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
 .filter-links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 18px;
   margin-top: 14px;
   padding-top: 12px;
   border-top: 1px solid var(--border);
   font-size: 14px;
 }
-.filter-links a {
+.filter-links a,
+.link-button {
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-color: var(--border);
+  transition: text-decoration-color 0.16s ease;
 }
-.filter-links a:hover {
+.filter-links a:hover,
+.link-button:hover {
   text-decoration-color: var(--accent);
 }
-.post-batch {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 16px;
-}
-.batch-all {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--muted);
-  cursor: pointer;
-}
-.batch-all input,
-.post-select input {
-  width: 15px;
-  height: 15px;
-  margin: 0;
-  accent-color: var(--accent);
-  cursor: pointer;
-}
-.batch-download {
-  font-size: 13px;
-  padding: 6px 14px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: transparent;
+.link-button {
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
   color: var(--muted);
 }
-.batch-download:not(:disabled) {
-  border-color: var(--accent);
+.link-button:hover {
   color: var(--accent);
-}
-.batch-download:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
 }
 .post-list {
   border-top: 1px solid var(--border);
-  margin-top: 10px;
+  margin-top: 16px;
 }
 .post-item {
   display: grid;
@@ -812,6 +810,13 @@ nav {
 .post-select {
   display: flex;
   padding-top: 8px;
+}
+.post-select input {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 .post-item-link {
   display: block;
@@ -907,12 +912,15 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 18px;
   padding: 6px 14px;
   border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 13px;
   color: var(--muted);
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background-color 0.16s ease;
 }
 .article-download svg {
   width: 14px;
@@ -921,6 +929,7 @@ nav {
 .article-download:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: var(--soft);
 }
 .article-grid {
   display: grid;
@@ -1375,8 +1384,9 @@ html[data-theme="dark"] .astro-code span {
   .article-shell {
     padding-block: 32px 48px;
   }
-  .back-link {
-    margin-bottom: 32px;
+  .article-top {
+    flex-wrap: wrap;
+    margin-bottom: 24px;
   }
   .article-header h1 {
     font-size: 31px;
@@ -1427,6 +1437,12 @@ html[data-theme="dark"] .astro-code span {
   border: 1px solid var(--border);
   border-radius: 4px;
   color: var(--muted);
+}
+.tags > .tag-special {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--soft);
+  font-weight: 550;
 }
 .related-articles {
   max-width: 760px;
