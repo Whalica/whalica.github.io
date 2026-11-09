@@ -5,10 +5,9 @@ import { href, categories, date } from "../../lib/site";
 const posts = (
   await getCollection("posts", (p) => !p.data.draft && !p.data.demo)
 ).sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate));
-const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort((a, b) =>
-  a.localeCompare(b, "zh-CN"),
-);
-const filters = [...categories, ...tags.filter((t) => !categories.includes(t))];
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))]
+  .filter((t) => !categories.includes(t))
+  .sort((a, b) => a.localeCompare(b, "zh-CN"));
 const searchable = (post: (typeof posts)[number]) =>
   [post.data.title, post.data.description, post.data.category, ...post.data.tags]
     .join(" ")
@@ -59,20 +58,32 @@ const empty = posts.length === 0;
     </div>
     <div class="filter-panel" id="filter-panel" hidden>
       <div class="filter-group">
-        <span class="quiet-label">按标签筛选</span>
-        <div class="filter-chips">
-          {filters.map((tag) => (
+        <span class="quiet-label">特殊标签</span>
+        <div class="filter-chips filter-chips--special">
+          {categories.map((c) => (
             <button
               type="button"
-              data-chip={tag}
+              data-chip={c}
               aria-pressed="false"
               disabled={empty}
             >
-              {tag}
+              {c}
             </button>
           ))}
         </div>
       </div>
+      {tags.length > 0 && (
+        <div class="filter-group">
+          <span class="quiet-label">标签</span>
+          <div class="filter-chips">
+            {tags.map((tag) => (
+              <button type="button" data-chip={tag} aria-pressed="false">
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       <div class="filter-links">
         <a href={href("tags/")}>全部标签 ↗</a>
         <a href={href("archives/")}>归档 ↗</a>
@@ -111,18 +122,16 @@ const empty = posts.length === 0;
               data-search={searchable(p)}
             >
               <div class="post-item-head">
-                <span>{p.data.category}</span>
+                <h2>{p.data.title}</h2>
                 <time>{date(p.data.pubDate!)}</time>
               </div>
-              <h2>{p.data.title}</h2>
               <p>{p.data.description}</p>
-              {p.data.tags.length > 0 && (
-                <div class="post-item-tags">
-                  {p.data.tags.map((tag) => (
-                    <span>#{tag}</span>
-                  ))}
-                </div>
-              )}
+              <div class="post-item-tags">
+                <span class="tag-special">{p.data.category}</span>
+                {p.data.tags.map((tag) => (
+                  <span>#{tag}</span>
+                ))}
+              </div>
             </a>
           ))}
         </div>
