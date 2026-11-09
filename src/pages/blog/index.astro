@@ -33,14 +33,16 @@ const empty = posts.length === 0;
         {empty ? "暂无文章" : `共 ${posts.length} 篇`}
       </span>
       <button
-        id="download-selected"
+        id="select-toggle"
         class="filter-toggle"
         type="button"
-        aria-label="下载所选文章的 Markdown"
-        title="下载所选文章的 Markdown"
-        disabled
+        aria-pressed="false"
+        aria-label="选择文章下载 Markdown"
+        title="选择文章下载 Markdown"
+        disabled={empty}
       >
         <svg
+          class="icon-pick"
           viewBox="0 0 16 16"
           fill="none"
           stroke="currentColor"
@@ -51,7 +53,18 @@ const empty = posts.length === 0;
         >
           <path d="M8 2.6v7.1M5.1 6.9 8 9.8l2.9-2.9M2.9 12.6h10.2" />
         </svg>
-        <span class="filter-count" id="selected-count" hidden></span>
+        <svg
+          class="icon-close"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 4l8 8M12 4l-8 8" />
+        </svg>
       </button>
       <button
         id="filter-toggle"
@@ -109,11 +122,6 @@ const empty = posts.length === 0;
         <a href={href("tags/")}>全部标签 ↗</a>
         <a href={href("archives/")}>归档 ↗</a>
         {Astro.site && <a href={href("rss.xml")}>RSS ↗</a>}
-        {!empty && (
-          <button type="button" class="link-button" id="select-all">
-            全选
-          </button>
-        )}
       </div>
     </div>
     {empty ? (
@@ -139,6 +147,18 @@ const empty = posts.length === 0;
       </div>
     ) : (
       <>
+        <div class="select-bar" id="select-bar" hidden>
+          <button type="button" class="link-button" id="select-all">全选</button>
+          <span class="select-count" id="selected-count">已选 0 篇</span>
+          <button
+            type="button"
+            class="batch-download"
+            id="download-selected"
+            disabled
+          >
+            打包下载
+          </button>
+        </div>
         <div class="post-list" id="post-list">
           {posts.map((p) => (
             <div
@@ -235,27 +255,29 @@ const empty = posts.length === 0;
     }
   }
 
+  const selectToggle =
+    document.querySelector<HTMLButtonElement>("#select-toggle");
+  const selectBar = document.querySelector<HTMLElement>("#select-bar");
   const selectAll = document.querySelector<HTMLButtonElement>("#select-all");
   const downloadBtn = document.querySelector<HTMLButtonElement>(
     "#download-selected",
   );
   const selectedCount = document.querySelector<HTMLElement>("#selected-count");
 
-  if (list && downloadBtn) {
+  if (list && downloadBtn && selectToggle) {
     const rows = Array.from(list.querySelectorAll<HTMLElement>(".post-item"));
     const boxes = rows
       .map((row) => row.querySelector<HTMLInputElement>("input[type=checkbox]"))
       .filter((box): box is HTMLInputElement => box !== null);
+    let picking = false;
 
     const selected = () => boxes.filter((box) => box.checked);
 
     const sync = () => {
       const picked = selected().length;
       downloadBtn.disabled = picked === 0;
-      if (selectedCount) {
-        selectedCount.textContent = picked > 0 ? String(picked) : "";
-        selectedCount.hidden = picked === 0;
-      }
+      downloadBtn.textContent = picked > 0 ? `打包下载（${picked}）` : "打包下载";
+      if (selectedCount) selectedCount.textContent = `已选 ${picked} 篇`;
       if (!selectAll) return;
       const visible = boxes.filter(
         (box) => !box.closest<HTMLElement>(".post-item")?.hidden,
@@ -264,6 +286,19 @@ const empty = posts.length === 0;
         visible.length > 0 && visible.every((box) => box.checked);
       selectAll.textContent = allPicked ? "取消全选" : "全选";
     };
+
+    const setPicking = (next: boolean) => {
+      picking = next;
+      document.body.classList.toggle("picking", next);
+      selectToggle.setAttribute("aria-pressed", String(next));
+      selectToggle.title = next ? "退出选择" : "选择文章下载 Markdown";
+      selectToggle.setAttribute("aria-label", selectToggle.title);
+      if (selectBar) selectBar.hidden = !next;
+      if (!next) for (const box of boxes) box.checked = false;
+      sync();
+    };
+
+    selectToggle.addEventListener("click", () => setPicking(!picking));
 
     selectAll?.addEventListener("click", () => {
       const visible = boxes.filter(
@@ -276,6 +311,20 @@ const empty = posts.length === 0;
     });
 
     for (const box of boxes) box.addEventListener("change", sync);
+
+    // 选择模式下点整行即勾选，不跳转文章
+    list.addEventListener("click", (event) => {
+      if (!picking) return;
+      const row = (event.target as HTMLElement).closest<HTMLElement>(
+        ".post-item",
+      );
+      if (!row) return;
+      event.preventDefault();
+      const box = row.querySelector<HTMLInputElement>("input[type=checkbox]");
+      if (!box) return;
+      box.checked = !box.checked;
+      sync();
+    });
 
     downloadBtn.addEventListener("click", async () => {
       const pickedRows = selected()
@@ -309,12 +358,12 @@ const empty = posts.length === 0;
         link.click();
         link.remove();
         setTimeout(() => URL.revokeObjectURL(href), 1000);
+        setPicking(false);
       } catch {
         downloadBtn.title = "打包失败，请重试";
         setTimeout(() => {
-          downloadBtn.title = "下载所选文章的 Markdown";
+          downloadBtn.title = "";
         }, 2000);
-        return;
       } finally {
         downloadBtn.classList.remove("busy");
         sync();
