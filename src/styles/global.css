@@ -536,7 +536,8 @@ nav {
   min-height: 70vh;
 }
 .page.compact {
-  padding-block: 28px 56px;
+  padding-block: 28px 48px;
+  min-height: 0;
 }
 .page h1 {
   font-size: 46px;
@@ -581,8 +582,8 @@ nav {
   color: var(--muted);
 }
 .empty-state {
-  margin-block: 32px;
-  padding: 44px 24px;
+  margin-block: 28px;
+  padding: 36px 24px;
   border-block: 1px solid var(--border);
   text-align: center;
 }
@@ -931,6 +932,30 @@ nav {
   gap: 12px 28px;
   justify-content: center;
   margin-top: 26px;
+}
+.empty-topics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 40px;
+  max-width: 700px;
+  margin: 26px auto 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--border);
+  list-style: none;
+  text-align: left;
+}
+.empty-topics li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.empty-topics strong {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--accent);
 }
 .article-shell {
   padding-block: 40px 80px;
@@ -1437,6 +1462,10 @@ html[data-theme="dark"] .astro-code span {
   }
   .empty-links {
     justify-content: flex-start;
+  }
+  .empty-topics {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
   .article-shell {
     padding-block: 32px 48px;

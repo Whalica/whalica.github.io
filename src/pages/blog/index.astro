@@ -13,6 +13,12 @@ const searchable = (post: (typeof posts)[number]) =>
     .join(" ")
     .toLowerCase();
 const empty = posts.length === 0;
+const topicNotes: Record<string, string> = {
+  算法与建模: "推导过程、实现取舍与复杂度分析",
+  竞赛复盘: "赛后回看：判断、失误与下一次的修正",
+  软件工程: "工程实践、工具选型与踩过的坑",
+  学习与研究: "读书笔记与长期积累的东西",
+};
 ---
 
 <Base title="博客 · 技术手记 — Whalica">
@@ -144,6 +150,14 @@ const empty = posts.length === 0;
             </a>
           )}
         </div>
+        <ul class="empty-topics">
+          {categories.map((c) => (
+            <li>
+              <strong>{c}</strong>
+              <span>{topicNotes[c]}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     ) : (
       <>
