@@ -848,19 +848,26 @@ nav {
   margin-top: 16px;
 }
 .post-item {
-  display: block;
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 0 22px;
+  align-items: start;
   padding: 22px 0;
   border-bottom: 1px solid var(--border);
 }
 .picking .post-item {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 14px;
-  align-items: start;
+  grid-template-columns: auto 104px minmax(0, 1fr);
+  gap: 0 16px;
   cursor: pointer;
 }
 .post-item[hidden] {
   display: none;
+}
+.post-item-date {
+  font-size: 13px;
+  color: var(--muted);
+  padding-top: 4px;
+  white-space: nowrap;
 }
 .post-select {
   display: none;
@@ -881,25 +888,15 @@ nav {
   min-width: 0;
 }
 .post-item-head {
-  display: flex;
-  gap: 16px;
-  align-items: baseline;
   margin-bottom: 8px;
 }
 .post-item-head h2 {
   font-size: 21px;
   margin: 0;
 }
-.post-item-head time {
-  flex: none;
-  margin-left: auto;
-  font-size: 13px;
-  color: var(--muted);
-}
 .post-item p {
   font-size: 15px;
   margin-bottom: 0;
-  max-width: 62ch;
 }
 .post-item-tags {
   display: flex;
@@ -1452,10 +1449,20 @@ html[data-theme="dark"] .astro-code span {
     display: none;
   }
   .post-item {
-    padding: 20px 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+    padding: 18px 0;
   }
-  .post-item-head {
-    gap: 12px;
+  .picking .post-item {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 2px 12px;
+  }
+  .post-item-date {
+    padding-top: 0;
+    font-size: 12px;
+  }
+  .post-item-link {
+    grid-column: 1 / -1;
   }
   .post-item-head h2 {
     font-size: 19px;
