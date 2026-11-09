@@ -56,6 +56,26 @@ const related = (
           ),
         )}
       </div>
+      {!post.data.demo && (
+        <a
+          class="article-download"
+          href={href("posts/" + post.id + ".md")}
+          download={post.id + ".md"}
+        >
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 2.5v7.2M5 6.9l3 3 3-3M2.8 12.5h10.4" />
+          </svg>
+          下载 .md
+        </a>
+      )}
     </header>
     <div class="article-grid">
       <article
