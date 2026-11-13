@@ -92,9 +92,6 @@ export function initTocSpy() {
 export function initReader() {
   const proseEl = document.querySelector<HTMLElement>(".prose");
   const article = document.querySelector<HTMLElement>("[data-post-id]");
-  const panel = document.querySelector<HTMLElement>("#note-list");
-  const countBox = document.querySelector<HTMLElement>("#note-count");
-  const emptyHint = document.querySelector<HTMLElement>("#note-empty");
   if (!proseEl || !article) return;
   const prose: HTMLElement = proseEl;
 
@@ -336,7 +333,6 @@ export function initReader() {
     marks.push(mark);
     repaintAll();
     write();
-    renderPanel();
     const el = prose.querySelector<HTMLElement>(`[data-mark-id="${mark.id}"]`);
     window.getSelection()?.removeAllRanges();
     hideToolbar();
@@ -372,7 +368,6 @@ export function initReader() {
         mark.note = textarea.value.trim();
         write();
         repaintAll();
-        renderPanel();
       }
       hidePop();
       return;
@@ -381,7 +376,6 @@ export function initReader() {
       marks = marks.filter((item) => item.id !== editingId);
       write();
       repaintAll();
-      renderPanel();
       hidePop();
     }
   });
@@ -410,54 +404,5 @@ export function initReader() {
   });
   window.addEventListener("scroll", hideToolbar, { passive: true });
 
-  /* --- 笔记面板 --- */
-  function renderPanel() {
-    if (!panel) return;
-    panel.innerHTML = "";
-    const sorted = [...marks].sort((a, b) => a.block - b.block || a.start - b.start);
-    for (const mark of sorted) {
-      const li = document.createElement("li");
-      li.className = "note-item";
-      li.dataset.markId = mark.id;
-      li.dataset.color = mark.color;
-
-      const jump = document.createElement("button");
-      jump.type = "button";
-      jump.className = "note-jump";
-      jump.textContent = mark.text.length > 42 ? `${mark.text.slice(0, 42)}…` : mark.text;
-      jump.addEventListener("click", () => {
-        const el = prose.querySelector<HTMLElement>(`[data-mark-id="${mark.id}"]`);
-        el?.scrollIntoView({ block: "center", behavior: "smooth" });
-        el?.classList.add("is-flash");
-        window.setTimeout(() => el?.classList.remove("is-flash"), 900);
-      });
-
-      const del = document.createElement("button");
-      del.type = "button";
-      del.className = "note-del";
-      del.title = "删除";
-      del.setAttribute("aria-label", "删除这条记号");
-      del.textContent = "✕";
-      del.addEventListener("click", () => {
-        marks = marks.filter((item) => item.id !== mark.id);
-        write();
-        repaintAll();
-        renderPanel();
-      });
-
-      li.append(jump, del);
-      if (mark.note) {
-        const p = document.createElement("p");
-        p.className = "note-text";
-        p.textContent = mark.note;
-        li.append(p);
-      }
-      panel.append(li);
-    }
-    if (countBox) countBox.textContent = String(marks.length);
-    if (emptyHint) emptyHint.hidden = marks.length > 0;
-  }
-
   repaintAll();
-  renderPanel();
 }
