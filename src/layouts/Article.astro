@@ -81,6 +81,7 @@ const related = (
     <div class="article-grid">
       <article
         class="prose"
+        data-post-id={post.id}
         data-pagefind-body={!post.data.demo ? true : undefined}
       >
         <slot />
@@ -100,11 +101,15 @@ const related = (
               ))}
           </nav>
         </details>
-        <p>
-          把问题想清楚，
-          <br />
-          把过程记录下来。
-        </p>
+        <section class="note-panel" aria-labelledby="note-heading">
+          <h2 id="note-heading">
+            我的笔记 <span id="note-count">0</span>
+          </h2>
+          <p class="note-empty" id="note-empty">
+            选中正文里的任意文字，可以画荧光笔、加波浪线，或者写一条笔记。都保存在这台浏览器里。
+          </p>
+          <ul class="note-list" id="note-list"></ul>
+        </section>
       </aside>
     </div>
     {related.length > 0 && (
@@ -119,6 +124,8 @@ const related = (
     )}
   </div>
   <script>
+    import { initReader, initTocSpy } from "../lib/reader";
+
     document.querySelectorAll("pre").forEach((pre) => {
       const button = document.createElement("button");
       button.className = "copy-button";
@@ -145,5 +152,8 @@ const related = (
     );
     if (details && matchMedia("(max-width: 1023px)").matches)
       details.open = false;
+
+    initTocSpy();
+    initReader();
   </script>
 </Base>
