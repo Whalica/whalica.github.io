@@ -1,12 +1,15 @@
 ---
 title: "计网期末复习 04｜网络层：跨校路由、云端入口与 NAT"
 description: "贴合教材复习IPv4、ARP、CIDR、最长前缀匹配、分片、RIP、OSPF和NAT，用联合赛地址规划与排障做例题。"
+category: "学习与研究"
+pubDate: 2026-11-16
+draft: false
 tags: [计算机网络, 期末复习, 网络层, HydroOJ, 算法竞赛]
 ---
 
 校内几台机器都能打开 OJ，另一所学校却进不来。也可能网页已经能访问，独立评测机连不上主服务。先在有问题的那台机器上区分目的 IP、下一跳和服务端口三个量。校内可达、跨网可达和应用接受请求是不同的证据。
 
-系列：[概述](network-final-01-overview.md) · [物理层](network-final-02-physical.md) · [数据链路层](network-final-03-link.md) · [网络层](network-final-04-network.md)
+系列：[概述](/blog/network-final-01-overview/) · [物理层](/blog/network-final-02-physical/) · [数据链路层](/blog/network-final-03-link/) · [网络层](/blog/network-final-04-network/)
 
 教材对照：谢希仁《计算机网络》第8版，ISBN 978-7-121-41174-8。第4章从第115页起，IP见第4.2节（第119页），转发见第4.3节（第140页），路由协议见第4.6节（第157页），VPN与NAT见第4.8节（第185页）。本篇主线按软工课件展开，ICMP、IPv6和BGP标为教材扩展。所附期中卷没有直接考第4章，本篇例题沿用该卷分步交代条件与计算过程的风格。 [出版社目录](https://phei.com.cn/module/goods/wssd_content.jsp?bookid=58234)
 

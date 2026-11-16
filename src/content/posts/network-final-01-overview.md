@@ -1,12 +1,15 @@
 ---
 title: "计网期末复习 01｜概述：从提交代码到云端汇总"
 description: "用 HydroOJ 联合新生赛理解分组交换、时延、吞吐量和五层模型，附详细例题。"
+category: "学习与研究"
+pubDate: 2026-11-16
+draft: false
 tags: [计算机网络, 期末复习, HydroOJ, 算法竞赛]
 ---
 
 联合新生赛里，选手上传几 KB 的代码，出题人上传几十 MB 的测试数据，各校再把报名表或榜单快照汇总到云端。代码很小，提交后的等待却可能很长。题目数据很大，上传慢也未必和评测有关。先用本章的几个量，把这几种等待拆开。
 
-系列：[概述](network-final-01-overview.md) · [物理层](network-final-02-physical.md) · [数据链路层](network-final-03-link.md) · [网络层](network-final-04-network.md)
+系列：[概述](/blog/network-final-01-overview/) · [物理层](/blog/network-final-02-physical/) · [数据链路层](/blog/network-final-03-link/) · [网络层](/blog/network-final-04-network/)
 
 教材对照见谢希仁《计算机网络》第8版，ISBN 978-7-121-41174-8。第1章从第1页起，交换见第1.3.2节（第12页），性能见第1.6节（第21页），体系结构见第1.7节（第27页）。页码是纸质教材页码。 [出版社目录](https://phei.com.cn/module/goods/wssd_content.jsp?bookid=58234)
 

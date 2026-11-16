@@ -1,12 +1,15 @@
 ---
 title: "计网期末复习 02｜物理层：会场网线、上行速率与信道容量"
 description: "贴合教材解读比特与码元、奈氏与香农公式、同步时分复用，附期中题型变式。"
+category: "学习与研究"
+pubDate: 2026-11-16
+draft: false
 tags: [计算机网络, 期末复习, 物理层, 算法竞赛]
 ---
 
 会场网卡协商到 1 Gbit/s，题目数据上传仍可能只有几 MB/s。网卡协商、家宽上行和云端实际收文件是三处不同的观测点。本章从物理信号解释前两处能提供什么，再用上传数据的例子练习单位换算。
 
-系列：[概述](network-final-01-overview.md) · [物理层](network-final-02-physical.md) · [数据链路层](network-final-03-link.md) · [网络层](network-final-04-network.md)
+系列：[概述](/blog/network-final-01-overview/) · [物理层](/blog/network-final-02-physical/) · [数据链路层](/blog/network-final-03-link/) · [网络层](/blog/network-final-04-network/)
 
 教材对照见谢希仁《计算机网络》第8版，ISBN 978-7-121-41174-8。第2章从第42页起，信道极限见第2.2.3节（第46页），复用见第2.4节（第56页），宽带接入见第2.6节（第63页）。 [出版社目录](https://phei.com.cn/module/goods/wssd_content.jsp?bookid=58234)
 

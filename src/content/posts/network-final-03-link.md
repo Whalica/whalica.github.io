@@ -1,12 +1,15 @@
 ---
 title: "计网期末复习 03｜数据链路层：CRC、交换机和比赛机房"
 description: "沿教材梳理封装成帧、PPP、传统以太网、交换机与VLAN，详细讲解五种期中题型。"
+category: "学习与研究"
+pubDate: 2026-11-16
+draft: false
 tags: [计算机网络, 期末复习, 数据链路层, VLAN, 算法竞赛]
 ---
 
 比赛机房里，只有一排电脑进不了 OJ。它们可以相互通信，网口灯也亮着。先看这些机器接在哪个端口、属于哪个 VLAN，以及上联是否携带该 VLAN，再决定要不要去查云端。数据链路层要解决的是当前一段链路上怎样形成帧、发现差错、把帧送出去。
 
-系列：[概述](network-final-01-overview.md) · [物理层](network-final-02-physical.md) · [数据链路层](network-final-03-link.md) · [网络层](network-final-04-network.md)
+系列：[概述](/blog/network-final-01-overview/) · [物理层](/blog/network-final-02-physical/) · [数据链路层](/blog/network-final-03-link/) · [网络层](/blog/network-final-04-network/)
 
 教材对照：谢希仁《计算机网络》第8版，ISBN 978-7-121-41174-8。第3章从第71页起，成帧、透明传输和检错见第3.1.2节（第73页），PPP见第3.2节（第78页），以太网见第3.3节（第84页），交换与VLAN见第3.4节（第99页）。停止等待按期中考查放在这里练，其教材对应位置是第5.4.1节（第221页）。 [出版社目录](https://phei.com.cn/module/goods/wssd_content.jsp?bookid=58234)
 
